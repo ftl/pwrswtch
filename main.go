@@ -17,8 +17,8 @@ type powerLevel struct {
 
 var powerLevels = []powerLevel{
 	{10, 0.039216},
-	{30, 0.039216}, // TODO use real value
-	{50, 0.039216}, // TODO use real value
+	{30, 0.117647},
+	{50, 0.196078},
 	{100, 1.0},
 }
 
