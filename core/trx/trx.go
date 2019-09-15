@@ -2,7 +2,6 @@ package trx
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net"
 
@@ -24,13 +23,12 @@ type TRX struct {
 	address string
 }
 
-func (t *TRX) SetPowerLevel(value float32) error {
-	valueStr := fmt.Sprintf("%.6f", value)
-	log.Printf("Setting power to %s", valueStr)
+func (t *TRX) SetPowerLevel(value string) error {
+	log.Printf("Setting power to %s", value)
 	return t.sendCommand(
 		protocol.LongCommand("set_level"),
 		"RFPOWER",
-		valueStr,
+		value,
 	)
 }
 
@@ -63,7 +61,7 @@ func (t *TRX) sendCommand(command protocol.Command, args ...string) error {
 
 	request := protocol.Request{
 		Command: command,
-		Args: args,
+		Args:    args,
 	}
 	_, err = trx.Send(context.Background(), request)
 	if err != nil {
