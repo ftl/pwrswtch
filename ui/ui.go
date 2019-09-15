@@ -9,6 +9,8 @@ type Application interface {
 	PowerLevels() []string
 	SetPowerLevel(index int) error
 	SetTx(enabled bool) error
+	Tuning() bool
+	ToggleTuning() (bool, error)
 }
 
 func Run(app Application) error {
@@ -39,12 +41,13 @@ func Run(app Application) error {
 		grid.Add(button)
 	}
 
-	txButton, _ := gtk.ButtonNewWithLabel("Tx")
-	txButton.Connect("clicked", txSetter(app, true))
-	grid.Add(txButton)
 	rxButton, _ := gtk.ButtonNewWithLabel("Rx")
 	rxButton.Connect("clicked", txSetter(app, false))
 	grid.Add(rxButton)
+	tuneButton, _ := gtk.ButtonNewWithLabel("Tune")
+	tuneButton.Connect("clicked", tuningToggler(app, tuneButton))
+	tuneButton.SetHExpand(true)
+	grid.Add(tuneButton)
 
 	mainWindow.Add(grid)
 	mainWindow.ShowAll()
@@ -62,5 +65,16 @@ func powerSetter(app Application, index int) func() {
 func txSetter(app Application, enabled bool) func() {
 	return func() {
 		app.SetTx(enabled)
+	}
+}
+
+func tuningToggler(app Application, button *gtk.Button) func() {
+	return func() {
+		tuning, _ := app.ToggleTuning()
+		if tuning {
+			button.SetLabel("Tuning")
+		} else {
+			button.SetLabel("Tune")
+		}
 	}
 }
