@@ -5,8 +5,9 @@ import (
 	"log"
 	"net"
 
-	"github.com/ftl/rigproxy/pkg/protocol"
 	"github.com/pkg/errors"
+
+	"github.com/ftl/rigproxy/pkg/protocol"
 )
 
 func Open(address string) *TRX {
@@ -25,17 +26,32 @@ type TRX struct {
 
 func (t *TRX) SetPowerLevel(value string) error {
 	log.Printf("Setting power to %s", value)
-	return t.sendCommand(
+	return t.setValue(
 		protocol.LongCommand("set_level"),
 		"RFPOWER",
 		value,
 	)
 }
 
+func (t *TRX) GetPowerLevel() (string, error) {
+	data, err := t.sendSingleCommand(
+		protocol.LongCommand("get_level"),
+		"RFPOWER",
+	)
+	if err != nil {
+		return "", err
+	}
+	if len(data) != 1 {
+		return "", errors.Errorf("unexpected RFPOWER level %v", data)
+	}
+	log.Printf("Got RFPOWER level %s", data[0])
+	return data[0], nil
+}
+
 func (t *TRX) SetTx(enabled bool) error {
 	valueStr := boolTo01(enabled)
 	log.Printf("Setting the Tx to %s", valueStr)
-	return t.sendCommand(
+	return t.setValue(
 		protocol.LongCommand("set_ptt"),
 		valueStr,
 	)
@@ -48,10 +64,15 @@ func boolTo01(b bool) string {
 	return "0"
 }
 
-func (t *TRX) sendCommand(command protocol.Command, args ...string) error {
+func (t *TRX) setValue(command protocol.Command, args ...string) error {
+	_, err := t.sendSingleCommand(command, args...)
+	return err
+}
+
+func (t *TRX) sendSingleCommand(command protocol.Command, args ...string) ([]string, error) {
 	out, err := net.Dial("tcp", t.address)
 	if err != nil {
-		return errors.Wrap(err, "cannot connect to TRX")
+		return nil, errors.Wrap(err, "cannot connect to TRX")
 	}
 	trx := protocol.NewTransceiver(out)
 	defer trx.Close()
@@ -63,9 +84,9 @@ func (t *TRX) sendCommand(command protocol.Command, args ...string) error {
 		Command: command,
 		Args:    args,
 	}
-	_, err = trx.Send(context.Background(), request)
+	response, err := trx.Send(context.Background(), request)
 	if err != nil {
-		return errors.Wrapf(err, "cannot send %v command with args %v", command.Long, args)
+		return nil, errors.Wrapf(err, "cannot send %v command with args %v", command.Long, args)
 	}
-	return nil
+	return response.Data, nil
 }
