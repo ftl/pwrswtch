@@ -2,23 +2,20 @@ package app
 
 import (
 	"fmt"
+
+	"github.com/ftl/pwrswtch/core"
 )
 
-func New(trx TRX) *App {
+func New(trx TRX, config core.Configuration) *App {
 	result := App{
-		trx: trx,
-		powerLevels: []powerLevel{
-			{10, "0.039216"},
-			{30, "0.117647"},
-			{50, "0.196078"},
-			{100, "1.0"},
-		},
-		tuningValue: "0.039216",
+		trx:         trx,
+		powerLevels: config.Levels,
+		tuningValue: config.TuningValue,
 	}
 
 	result.powerLevelLabels = make([]string, len(result.powerLevels))
 	for i, level := range result.powerLevels {
-		result.powerLevelLabels[i] = fmt.Sprintf("%dW", level.watts)
+		result.powerLevelLabels[i] = fmt.Sprintf("%dW", level.Watts)
 	}
 	return &result
 }
@@ -38,17 +35,14 @@ type TRX interface {
 	SetTx(enabled bool) error
 }
 
-type powerLevel struct {
-	watts int
-	value string
-}
+type powerLevel = core.PowerLevel
 
 func (a *App) PowerLevels() []string {
 	return a.powerLevelLabels
 }
 
 func (a *App) SetPowerLevel(index int) error {
-	return a.trx.SetPowerLevel(a.powerLevels[index].value)
+	return a.trx.SetPowerLevel(a.powerLevels[index].Value)
 }
 
 func (a *App) SetTx(enabled bool) error {
