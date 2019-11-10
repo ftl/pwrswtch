@@ -27,11 +27,15 @@ type App struct {
 	tuning           bool
 	tuningValue      string
 	lastValue        string
+	lastMode         string
+	lastPassband     string
 }
 
 type TRX interface {
 	SetPowerLevel(value string) error
 	GetPowerLevel() (string, error)
+	SetMode(mode, passband string) error
+	GetMode() (string, string, error)
 	SetTx(enabled bool) error
 }
 
@@ -42,6 +46,12 @@ func (a *App) PowerLevels() []string {
 }
 
 func (a *App) SetPowerLevel(index int) error {
+	if a.tuning {
+		err := a.endTuning()
+		if err != nil {
+			return err
+		}
+	}
 	return a.trx.SetPowerLevel(a.powerLevels[index].Value)
 }
 
@@ -66,11 +76,21 @@ func (a *App) ToggleTuning() (bool, error) {
 
 func (a *App) beginTuning() error {
 	var err error
-	a.lastValue, err = a.trx.GetPowerLevel()
-	if err != nil {
-		return err
+	if err == nil {
+		a.lastValue, err = a.trx.GetPowerLevel()
 	}
-	err = a.trx.SetPowerLevel(a.tuningValue)
+	if err == nil {
+		a.lastMode, a.lastPassband, err = a.trx.GetMode()
+	}
+	if err == nil {
+		err = a.trx.SetPowerLevel(a.tuningValue)
+	}
+	if err == nil {
+		err = a.trx.SetMode("FM", "8000")
+	}
+	if err == nil {
+		err = a.trx.SetTx(true)
+	}
 	if err != nil {
 		return err
 	}
@@ -79,7 +99,16 @@ func (a *App) beginTuning() error {
 }
 
 func (a *App) endTuning() error {
-	err := a.trx.SetPowerLevel(a.lastValue)
+	var err error
+	if err == nil {
+		err = a.trx.SetTx(false)
+	}
+	if err == nil {
+		err = a.trx.SetMode(a.lastMode, a.lastPassband)
+	}
+	if err == nil {
+		err = a.trx.SetPowerLevel(a.lastValue)
+	}
 	if err != nil {
 		return err
 	}

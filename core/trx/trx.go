@@ -2,6 +2,7 @@ package trx
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 
@@ -42,10 +43,33 @@ func (t *TRX) GetPowerLevel() (string, error) {
 		return "", err
 	}
 	if len(data) != 1 {
-		return "", errors.Errorf("unexpected RFPOWER level %v", data)
+		return "", fmt.Errorf("unexpected RFPOWER level %v", data)
 	}
 	log.Printf("Got RFPOWER level %s", data[0])
 	return data[0], nil
+}
+
+func (t *TRX) SetMode(mode, passband string) error {
+	log.Printf("Setting mode to %s %s", mode, passband)
+	return t.setValue(
+		protocol.LongCommand("set_mode"),
+		mode,
+		passband,
+	)
+}
+
+func (t *TRX) GetMode() (string, string, error) {
+	data, err := t.sendSingleCommand(
+		protocol.LongCommand("get_mode"),
+	)
+	if err != nil {
+		return "", "", err
+	}
+	if len(data) != 2 {
+		return "", "", fmt.Errorf("unexpeced mode response %v", data)
+	}
+	log.Printf("Got mode %s %s", data[0], data[1])
+	return data[0], data[1], nil
 }
 
 func (t *TRX) SetTx(enabled bool) error {
