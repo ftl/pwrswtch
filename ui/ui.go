@@ -1,6 +1,12 @@
 package ui
 
 import (
+	"log"
+	"path/filepath"
+
+	"github.com/ftl/gmtry"
+	"github.com/ftl/hamradio/cfg"
+	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/pkg/errors"
 )
@@ -50,9 +56,27 @@ func Run(app Application) error {
 	grid.Add(tuneButton)
 
 	mainWindow.Add(grid)
+
+	configDir, err := cfg.Directory("")
+	if err != nil {
+		log.Fatalf("No access to configuration directory %s: %v", cfg.DefaultDirectory, err)
+	}
+	filename := filepath.Join(configDir, "pwrstch.geometry")
+	geometry := gmtry.NewGeometry(filename)
+	connectToGeometry(geometry, "main", mainWindow)
+	err = geometry.Restore()
+	if err != nil {
+		log.Printf("Cannot restore the window geometry: %v", err)
+	}
+
 	mainWindow.ShowAll()
 
 	gtk.Main()
+
+	err = geometry.Store()
+	if err != nil {
+		log.Printf("Cannot store the window geometry: %v", err)
+	}
 	return nil
 }
 
@@ -77,4 +101,21 @@ func tuningToggler(app Application, button *gtk.Button) func() {
 			button.SetLabel("Tune")
 		}
 	}
+}
+
+func connectToGeometry(geometry *gmtry.Geometry, id gmtry.ID, window *gtk.Window) {
+	geometry.Add(id, window)
+
+	window.Connect("configure-event", func(_ interface{}, event *gdk.Event) {
+		e := gdk.EventConfigureNewFromEvent(event)
+		w := geometry.Get(id)
+		w.SetPosition(e.X(), e.Y())
+		w.SetSize(e.Width(), e.Height())
+	})
+	window.Connect("window-state-event", func(_ interface{}, event *gdk.Event) {
+		e := gdk.EventWindowStateNewFromEvent(event)
+		if e.ChangedMask()&gdk.WINDOW_STATE_MAXIMIZED == gdk.WINDOW_STATE_MAXIMIZED {
+			geometry.Get(id).SetMaximized(e.NewWindowState()&gdk.WINDOW_STATE_MAXIMIZED == gdk.WINDOW_STATE_MAXIMIZED)
+		}
+	})
 }
