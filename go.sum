@@ -4,11 +4,11 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/ftl/gmtry v0.0.0-20200425131616-16f55bac18a0 h1:KTMhxzSCMrZT1KQFJO4SnmhH7tlpsMinL9AZqD3Yjrw=
 github.com/ftl/gmtry v0.0.0-20200425131616-16f55bac18a0/go.mod h1:AQpbHYBSPV1Bc1nqG8vv8BK3qxXMZIn32OQBi/4A7Sc=
-github.com/ftl/hamradio v0.0.0-20191125175533-3ff46af6c6f4 h1:UlR+Bzswj2iNHU45dcWPnBU1RD/8gDMwlFMS8YYM9wU=
-github.com/ftl/hamradio v0.0.0-20191125175533-3ff46af6c6f4/go.mod h1:avJly2K3R6FYj4Z7A2vXuueguM+VKjVrgvhLHkxvxQE=
-github.com/ftl/localcopy v0.0.0-20180426154617-736abab34fe4/go.mod h1:PgbDWWUEMWPttzMHQUZs07vDKKzBBJHGdnh765EY8eg=
-github.com/ftl/rigproxy v0.0.0-20191125174844-b2d5ab8b3130 h1:ksQ7ie4ZuKuwMTLkWbEMuyPmYwIv+xhAXJu9YqOF/bc=
-github.com/ftl/rigproxy v0.0.0-20191125174844-b2d5ab8b3130/go.mod h1:bHQcQ2INS4YoiXr4xnoygGUeb59DCeWHvQpzxUQvZ1Q=
+github.com/ftl/hamradio v0.0.0-20200610191216-39c81ce8e29d h1:QuLXDs2yxmIVtC33Ky97chScbGPIFpGE728zABt4Nbo=
+github.com/ftl/hamradio v0.0.0-20200610191216-39c81ce8e29d/go.mod h1:Gyec2UUjJF0AG3bIoMnsEF/aP8FExb1BgqyY7IohODs=
+github.com/ftl/localcopy v0.0.0-20190616142648-8915fb81f0d9/go.mod h1:4sZLCxjgn++exy5u0muVzlvnahfanPuiHLQo0GJQnPA=
+github.com/ftl/rigproxy v0.0.0-20200524134605-8e6f179b3a88 h1:382IniekorZk3xt36UJ4dAeVP45jug93JkGPJ3+ncAc=
+github.com/ftl/rigproxy v0.0.0-20200524134605-8e6f179b3a88/go.mod h1:bHQcQ2INS4YoiXr4xnoygGUeb59DCeWHvQpzxUQvZ1Q=
 github.com/golang/protobuf v1.4.0-rc.1/go.mod h1:ceaxUfeHdC40wWswd/P6IGgMaK3YpKi5j83Wpe3EHw8=
 github.com/golang/protobuf v1.4.0-rc.1.0.20200221234624-67d41d38c208/go.mod h1:xKAWHe0F5eneWXFV3EuXVDTCmh+JuBKY0li0aMyXATA=
 github.com/golang/protobuf v1.4.0-rc.2/go.mod h1:LlEzMj4AhA7rCAGe4KMBDvJI+AwstrUpVNzEA03Pprs=
@@ -19,6 +19,8 @@ github.com/google/go-cmp v0.3.0/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMyw
 github.com/google/go-cmp v0.3.1/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
 github.com/google/go-cmp v0.4.0 h1:xsAVV57WRhGj6kEIi8ReJzQlHHqcBYCElAvkovg3B/4=
 github.com/google/go-cmp v0.4.0/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+github.com/gotk3/gotk3 v0.0.0-20200621125936-10ee8f07c02e h1:4VOdrF68v8VkDGa2cmYhkW4nTqE9Qn4/Z3eByHi2ATw=
+github.com/gotk3/gotk3 v0.0.0-20200621125936-10ee8f07c02e/go.mod h1:/hqFpkNa9T3JgNAE2fLvCdov7c5bw//FHNZrZ3Uv9/Q=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
@@ -30,10 +32,10 @@ github.com/spf13/pflag v1.0.3/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnIn
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
-github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
-github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/stretchr/testify v1.5.1 h1:nOGnQDM7FYENwehXlg/kFVnos3rEvtKTjRvOWSzb6H4=
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
+github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd0=
+github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 h1:E7g+9GITq07hpfrRu66IVDexMakfv52eLZ2CXBWiKr4=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 google.golang.org/protobuf v0.0.0-20200109180630-ec00e32a8dfd/go.mod h1:DFci5gLYBciE7Vtevhsrf46CRTquxDuWsQurQQe4oz8=
@@ -46,3 +48,5 @@ gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v2 v2.2.2 h1:ZCJp+EgiOT7lHqUV2J862kp8Qj64Jo6az82+3Td9dZw=
 gopkg.in/yaml.v2 v2.2.2/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
+gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c h1:dUUwHk2QECo/6vqA44rthZ8ie2QXMNeKRTHCNY2nXvo=
+gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
