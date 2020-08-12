@@ -89,7 +89,7 @@ func Run(app Application) error {
 	if err != nil {
 		log.Fatalf("No access to configuration directory %s: %v", cfg.DefaultDirectory, err)
 	}
-	filename := filepath.Join(configDir, "pwrstch.geometry")
+	filename := filepath.Join(configDir, "pwrswtch.geometry")
 	ui.geometry = gmtry.NewGeometry(filename)
 
 	ui.gtkapp.Run(os.Args)
@@ -129,7 +129,7 @@ func connectToGeometry(geometry *gmtry.Geometry, id gmtry.ID, window *gtk.Window
 
 	window.Connect("configure-event", func(_ interface{}, event *gdk.Event) {
 		e := gdk.EventConfigureNewFromEvent(event)
-		w := geometry.Get(id)		
+		w := geometry.Get(id)
 		w.SetPosition(window.GetPosition()) // in this setup, the event contains the y of the area below the title bar, not the y of the top-left corner
 		w.SetSize(e.Width(), e.Height())
 	})
